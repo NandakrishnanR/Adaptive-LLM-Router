@@ -1,7 +1,7 @@
 # Adaptive LLM Router
 
 <p align="center">
-  <img src="./img.png" alt="Adaptive LLM Router UI" width="900">
+  <img src="img.png" alt="Adaptive LLM Router UI" width="600">
 </p>
 
 A lightweight service that **routes prompts to the right language model**:
@@ -23,8 +23,7 @@ It ships with a tiny web UI so you can type a prompt, pick **small / large / aut
 ---
 
 ## Project Structure
-
-text
+```text
 Adaptive-LLM-Router/
 ├─ app.py              # FastAPI app, routing, UI
 ├─ requirements.txt    # Python dependencies
@@ -34,18 +33,16 @@ Adaptive-LLM-Router/
 
 Quick Start
 
-1) Create a Python 3.11 env and install deps
-python3.11 -m venv .venv
-source .venv/bin/activate
-pip install -U pip
-pip install -r requirements.txt
+1. **Create a Python 3.11 virtual environment and install dependencies:**
+   ```bash
+   python3.11 -m venv .venv
+   source .venv/bin/activate
+   pip install -U pip
+   pip install -r requirements.txt
 
-2) Configure environment
-cp .env.example .env
+2) **Configure environment :cp .env.example .env
 
-3) Run
-
-uvicorn app:app --host 0.0.0.0 --port 8000 --reload
+3) **Run :uvicorn app:app --host 0.0.0.0 --port 8000 --reload
 
 How the Router Decides
 	•	mode = small → always local model
