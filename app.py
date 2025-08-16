@@ -5,13 +5,13 @@ from pydantic import BaseModel
 from transformers import pipeline, AutoTokenizer, AutoModelForCausalLM
 
 # hardcoded local models (no .env, no tokens)
-SMALL_MODEL = "distilgpt2"               # completion model (fast, weak)
-LARGE_MODEL = "google/flan-t5-large"      # instruction model (good for Q&A)
-PROMPT_LEN_THRESHOLD = 160               # auto-switch point
+SMALL_MODEL = "distilgpt2"               
+LARGE_MODEL = "google/flan-t5-large"      
+PROMPT_LEN_THRESHOLD = 160             
 SMALL_CONCURRENCY = 2
 LARGE_CONCURRENCY = 1
 
-# lazy init
+
 _small_pipe = None
 _large_pipe = None
 
@@ -31,7 +31,6 @@ def _small_generate(prompt: str, max_new_tokens: int) -> str:
         mdl = AutoModelForCausalLM.from_pretrained("distilgpt2")
         _small_pipe = pipeline("text-generation", model=mdl, tokenizer=tok, device=-1)
 
-    # PRIME WITH A PATTERN (distilgpt2 is a continuer, not an answerer)
     primed = (
         "Q: What is Apple?\n"
         "A: Apple is a large technology company known for the iPhone and the Mac.\n\n"
