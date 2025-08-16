@@ -6,3 +6,32 @@ _pycache_/
 key
 key.pub
 .env
+# IDE
+.idea/
+.vscode/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.log
+
+# venvs
+.venv/
+venv/
+ENV/
+
+# OS junk
+.DS_Store
+
+# Data / models (if any)
+faiss_index/
+vectorstore/
+*.faiss
+*.pkl
+
+# Secrets
+.env
+.env.*
+key
+key.pub
