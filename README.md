@@ -1,7 +1,7 @@
 # Adaptive LLM Router
 
 <p align="center">
-  <img src="img.png" alt="Adaptive LLM Router UI" width="600">
+  <img src="48029472-916D-4142-B74F-A0837B13D919_1_201_a.jpeg" alt="Adaptive LLM Router UI" width="600">
 </p>
 
 A lightweight service that **routes prompts to the right language model**:
