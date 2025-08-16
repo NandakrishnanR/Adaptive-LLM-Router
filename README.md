@@ -1,42 +1,66 @@
-# Adaptive LLM Switching Agent  
+# Adaptive LLM Router
 
-An experimental framework for **dynamic Large Language Model (LLM) routing**.  
-Instead of relying on a single model for every task, this agent **intelligently switches** between a lightweight model (fast, cost-efficient) and a larger model (accurate, reasoning-heavy) — depending on context, latency, and prompt length.  
-![img.png](img.png)
----
+<p align="center">
+  <img src="./img.png" alt="Adaptive LLM Router UI" width="900">
+</p>
 
-## Features  
+A lightweight service that **routes prompts to the right language model**:
+- a fast **local model** for simple/short requests
+- a stronger **remote model** for complex prompts
 
-- **Adaptive Routing** – Switch between small (e.g., DistilGPT2) and large (e.g., Mistral-7B Instruct) models.  
-- **Low Latency Mode** – Use the smaller model for fast responses.  
-- **High Accuracy Mode** – Trigger larger models for complex prompts.  
-- **Configurable Thresholds** – Adjust latency, prompt length, and concurrency limits.  
-- **Simple Setup** – Designed to be lightweight and easy to extend.  
+It ships with a tiny web UI so you can type a prompt, pick **small / large / auto**, and see latency + which model was used.
 
 ---
 
-## Project Structure  
-Adaptive-LLM-switching-agent/
-│── app.py              # Core routing logic
-│── requirements.txt    # Python dependencies
-│── .env.example        # Example environment configuration
-│── README.md           # Project documentation
+## Features
+
+- 🔀 **Adaptive routing** (length-based out of the box; easy to extend)
+- 🖥️ **Clean web UI** (FastAPI + a single HTML page)
+- 🧠 **Local small model:** `google/flan-t5-large` (instruction-tuned; good on CPU)
+- ☁️ **Remote large model:** e.g. `mistralai/Mistral-7B-Instruct-v0.2` via Hugging Face Inference API (optional)
+- 🔒 **Safe defaults:** `.env` is ignored by git; no secrets in the repo
 
 ---
 
-## ⚡ Quick Start  
+## Project Structure
 
-### 1️⃣ Clone the repository
-```bash
-git clone git@github.com:NandakrishnanR/Adaptive-LLM-Router.git
-cd Adaptive-LLM-Router
-2️⃣ Create and configure environment variables
-cp .env.example .env
-Created a huggingface token but now removed for security
-3️⃣ Install dependencies
+text
+Adaptive-LLM-Router/
+├─ app.py              # FastAPI app, routing, UI
+├─ requirements.txt    # Python dependencies
+├─ .env.example        # Example env file (no secrets)
+├─ README.md           # This file
+└─ img.png             # Screenshot shown above
+
+Quick Start
+
+1) Create a Python 3.11 env and install deps
+python3.11 -m venv .venv
+source .venv/bin/activate
+pip install -U pip
 pip install -r requirements.txt
-4️⃣ Run the agent
-python app.py
+
+2) Configure environment
+cp .env.example .env
+
+3) Run
+
+uvicorn app:app --host 0.0.0.0 --port 8000 --reload
+
+How the Router Decides
+	•	mode = small → always local model
+	•	mode = large → requires HF_TOKEN, uses the remote model
+	•	mode = auto → if len(prompt) > PROMPT_LEN_THRESHOLD, use large; otherwise small
+
+You can tweak PROMPT_LEN_THRESHOLD and decoding parameters inside app.py.
+
+⸻
+
+Good test prompts
+	•	“What is Siemens (the company)? Answer in 2–4 sentences.”
+	•	“List 3 main business areas of Siemens.”
+	•	“Explain PLCs in one short paragraph.”
+
 
 📜 License
 
