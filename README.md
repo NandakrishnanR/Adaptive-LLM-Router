@@ -64,16 +64,3 @@ Good test prompts
 MIT License © 2025 — Devrajeev
 ---
 
-✨ This version is:  
-- **Professional** → Reads like a real open-source project.  
-- **Human-written** → No generic AI tone, structured clearly.  
-- **Beautiful** → Emojis, clean sections, and roadmap.  
-
----
-
-👉 Copy all of the above into `README.md` and then run:  
-
-```bash
-git add README.md
-git commit -m "Added professional README"
-git push origin main
